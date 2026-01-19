@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "cc-science",
+	"version": "${version}",
+	"name": "CC-Science",
+	"description": "ComputerCraft (CC: Tweaked) peripherals for scientific progresion",
+	"authors": [
+		"Rikai_"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/cc-science/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.rikaisan.ccscience.CCScience"
+		],
+		"client": [
+			"com.rikaisan.ccscience.CCScienceClient"
+		],
+		"fabric-datagen": [
+			"com.rikaisan.ccscience.CCScienceDataGenerator"
+		]
+	},
+	"mixins": [
+		"cc-science.mixins.json",
+		{
+			"config": "cc-science.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*",
+		"computercraft": ">=1.117.0"
+	}
+}

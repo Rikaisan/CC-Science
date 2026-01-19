@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "cc-science:block/entity_radar_front",
+    "side": "cc-science:block/entity_radar_side",
+    "top": "cc-science:block/entity_radar_top"
+  }
+}
