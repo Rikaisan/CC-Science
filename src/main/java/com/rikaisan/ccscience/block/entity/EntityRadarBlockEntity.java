@@ -1,6 +1,6 @@
 package com.rikaisan.ccscience.block.entity;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
@@ -23,7 +23,7 @@ public class EntityRadarBlockEntity extends BlockEntity {
         if (this.getLevel() != null) {
             return this.getLevel().getEntities(null, AABB.encapsulatingFullBlocks(this.getBlockPos().subtract(boxRadius), this.getBlockPos().offset(boxRadius)));
         }
-        return new ArrayList<Entity>();
+        return Collections.emptyList();
     }
     
     @Override
