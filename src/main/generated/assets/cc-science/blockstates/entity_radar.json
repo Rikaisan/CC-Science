@@ -1,7 +1,20 @@
 {
   "variants": {
-    "": {
-      "model": "cc-science:block/entity_radar"
+    "facing=east": {
+      "model": "cc-science:block/entity_radar",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "cc-science:block/entity_radar",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "cc-science:block/entity_radar",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "cc-science:block/entity_radar",
+      "y": 270
     }
   }
 }

@@ -10,11 +10,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class ModBlocks {
-    public static final Block ENTITY_RADAR = register("entity_radar", new EntityRadar(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)), true);
+    public static final Block ENTITY_RADAR = register("entity_radar", new EntityRadarBlock(Properties.of().sound(SoundType.STONE).strength(1.0f)), true);
 
     public static void initialize() {
         ItemGroupEvents.modifyEntriesEvent(ModItems.ITEM_GROUP_KEY).register(group -> {
