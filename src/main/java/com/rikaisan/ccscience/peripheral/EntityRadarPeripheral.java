@@ -5,13 +5,16 @@ import com.rikaisan.ccscience.block.entity.EntityRadarBlockEntity;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
-import java.util.Arrays;
-import java.util.HashMap;
+import it.unimi.dsi.fastutil.doubles.DoubleList;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.core.Vec3i;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
@@ -22,14 +25,17 @@ public class EntityRadarPeripheral implements GenericPeripheral {
     }
 
     @LuaFunction
-    public Map<String, List<Float>> scan(EntityRadarBlockEntity radar) {
-        Map<String, List<Float>> entities = new HashMap<>();
-        final Vec3i center = radar.getBlockPos();
+    public List<Map<String, Object>> scan(EntityRadarBlockEntity radar) {
+        List<Map<String, Object>> entities = new ArrayList<>();
+        final BlockPos CENTER = radar.getBlockPos();
 
         for (Entity entity : radar.getSurroundingEntities()) {
-            Vec3 relativePos = entity.position().subtract(center.getX(), center.getY(), center.getZ());
-            List<Float> pos = Arrays.asList((float)relativePos.x, (float)relativePos.y, (float)relativePos.z);
-            entities.put(entity.getDisplayName().getString(), pos);
+            final Vec3 relativePos = entity.position().subtract(CENTER.getX(), CENTER.getY(), CENTER.getZ());
+            entities.add(Map.of(
+                "name", entity.getDisplayName().getString(),
+                "type", EntityType.getKey(entity.getType()).toString(),
+                "pos", DoubleList.of(relativePos.x, relativePos.y, relativePos.z)
+            ));
         }
 
         return entities;
