@@ -12,8 +12,8 @@ public class CCScienceBlockEntityType {
         "entity_radar",
         BlockEntityType.Builder.of(
             EntityRadarBlockEntity::new,
-            ModBlocks.ENTITY_RADAR).build()
-        );
+            ModBlocks.ENTITY_RADAR)
+        .build());
     
     public static void initialize() {}
 

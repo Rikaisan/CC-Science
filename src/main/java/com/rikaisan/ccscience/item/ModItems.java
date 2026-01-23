@@ -14,11 +14,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ModItems {
-    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), ResourceLocation.fromNamespaceAndPath(CCScience.MOD_ID, "item_group"));
+    public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(
+        BuiltInRegistries.CREATIVE_MODE_TAB.key(),
+        ResourceLocation.fromNamespaceAndPath(CCScience.MOD_ID, "item_group")
+    );
     public static final CreativeModeTab ITEM_GROUP = FabricItemGroup.builder()
-    .icon(() -> new ItemStack(ModBlocks.ENTITY_RADAR.asItem()))
-    .title(Component.translatable(ResourceLocation.fromNamespaceAndPath(CCScience.MOD_ID, "item_group").toLanguageKey()))
-    .build();
+        .icon(() -> new ItemStack(ModBlocks.ENTITY_RADAR.asItem()))
+        .title(Component.translatable(ResourceLocation.fromNamespaceAndPath(CCScience.MOD_ID, "item_group").toLanguageKey()))
+        .build();
 
     public static void initialize() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEM_GROUP_KEY, ITEM_GROUP);
