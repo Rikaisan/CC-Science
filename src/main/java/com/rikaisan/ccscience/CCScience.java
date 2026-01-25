@@ -4,8 +4,7 @@ import com.rikaisan.ccscience.block.ModBlocks;
 import com.rikaisan.ccscience.block.entity.CCScienceBlockEntityType;
 import com.rikaisan.ccscience.item.ModItems;
 import com.rikaisan.ccscience.peripheral.EntityRadarPeripheral;
-import dan200.computercraft.api.ComputerCraftAPI;
-
+import dan200.computercraft.api.peripheral.PeripheralLookup;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -17,12 +16,16 @@ public class CCScience implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-        LOGGER.info("Loaded CC: Science!");
+                LOGGER.info("Loaded CC: Science!");
 
-        ModItems.initialize();
-        ModBlocks.initialize();
-        CCScienceBlockEntityType.initialize();
+                ModItems.initialize();
+                ModBlocks.initialize();
+                CCScienceBlockEntityType.initialize();
 
-        ComputerCraftAPI.registerGenericSource(new EntityRadarPeripheral());
+                registerPeripherals();
 	}
+
+        private void registerPeripherals() {
+                PeripheralLookup.get().registerForBlockEntity((blockEntity, direction) -> new EntityRadarPeripheral(blockEntity), CCScienceBlockEntityType.ENTITY_RADAR);
+        }
 }
