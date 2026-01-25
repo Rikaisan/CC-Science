@@ -19,8 +19,11 @@ public class ModItems {
         ResourceLocation.fromNamespaceAndPath(CCScience.MOD_ID, "item_group")
     );
     public static final CreativeModeTab ITEM_GROUP = FabricItemGroup.builder()
-        .icon(() -> new ItemStack(ModBlocks.ENTITY_RADAR.asItem()))
-        .title(Component.translatable(ResourceLocation.fromNamespaceAndPath(CCScience.MOD_ID, "item_group").toLanguageKey()))
+        .icon(() -> new ItemStack(ModBlocks.ENTITY_RADAR))
+        .title(Component.translatable(ITEM_GROUP_KEY.location().toLanguageKey()))
+        .displayItems((params, output) -> {
+            output.accept(ModBlocks.ENTITY_RADAR);
+        })
         .build();
 
     public static void initialize() {

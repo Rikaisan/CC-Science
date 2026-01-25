@@ -17,9 +17,7 @@ public class ModBlocks {
     public static final Block ENTITY_RADAR = register("entity_radar", new EntityRadarBlock(Properties.of().sound(SoundType.STONE).strength(1.0f)), true);
 
     public static void initialize() {
-        ItemGroupEvents.modifyEntriesEvent(ModItems.ITEM_GROUP_KEY).register(group -> {
-            group.accept(ENTITY_RADAR.asItem());
-        });
+
     }
 
 	public static Block register(String name, Block block, boolean shouldRegisterItem) {
