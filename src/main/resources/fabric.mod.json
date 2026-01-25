@@ -22,7 +22,7 @@
 			"com.rikaisan.ccscience.CCScienceClient"
 		],
 		"fabric-datagen": [
-			"com.rikaisan.ccscience.CCScienceDataGenerator"
+			"com.rikaisan.ccscience.datagen.CCScienceDataGenerator"
 		]
 	},
 	"mixins": [
