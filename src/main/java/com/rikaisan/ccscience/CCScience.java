@@ -26,6 +26,9 @@ public class CCScience implements ModInitializer {
 	}
 
         private void registerPeripherals() {
-                PeripheralLookup.get().registerForBlockEntity((blockEntity, direction) -> new EntityRadarPeripheral(blockEntity), CCScienceBlockEntityType.ENTITY_RADAR);
+                PeripheralLookup.get().registerForBlockEntity(
+                        (blockEntity, direction) -> blockEntity.peripheral(),
+                        CCScienceBlockEntityType.ENTITY_RADAR
+                );
         }
 }
