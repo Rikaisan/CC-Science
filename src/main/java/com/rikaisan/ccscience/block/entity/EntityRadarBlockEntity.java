@@ -49,7 +49,7 @@ public class EntityRadarBlockEntity extends BlockEntity {
     public void sweep(Level world, BlockPos blockPos, BlockState blockState) {
         peripheral.updateScanData(getEntitiesInRadius(world, 8), blockPos);
     }
-    
+
     @Override
     protected void saveAdditional(CompoundTag nbt, Provider registryLookup) {
         nbt.putInt("sweep_counter", sweepCounter);

@@ -23,7 +23,7 @@ import org.jspecify.annotations.Nullable;
 public class EntityRadarPeripheral implements IPeripheral {
     private final EntityRadarBlockEntity radar;
     private final AttachedComputerSet computers = new AttachedComputerSet();
-    private List<Map<String, Object>> scannedEntities = Collections.emptyList();
+    private List<Map<String, Object>> scannedEntities = List.of();
 
     public EntityRadarPeripheral(EntityRadarBlockEntity radar) {
         this.radar = radar;
