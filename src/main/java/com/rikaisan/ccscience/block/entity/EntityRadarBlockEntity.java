@@ -1,11 +1,10 @@
 package com.rikaisan.ccscience.block.entity;
 
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.rikaisan.ccscience.peripheral.EntityRadarPeripheral;
 
+import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.Vec3i;
@@ -17,25 +16,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 public class EntityRadarBlockEntity extends BlockEntity {
-    private Set<EntityRadarPeripheral> peripherals = ConcurrentHashMap.newKeySet();
-    public int tickCounter = 0;
+    private final EntityRadarPeripheral peripheral = new EntityRadarPeripheral(this);
+    private int tickCounter = 0;
 
     public EntityRadarBlockEntity(BlockPos pos, BlockState state) {
         super(CCScienceBlockEntityType.ENTITY_RADAR, pos, state);
     }
 
     private List<Entity> getEntitiesInRadius(Level world, int radius) {
-        radius = Math.abs(radius);
+        if(radius < 0)
+            throw new IllegalArgumentException("Radius may not be negative");
         final Vec3i boxRadius = new Vec3i(radius, radius, radius);
         return world.getEntities(null, AABB.encapsulatingFullBlocks(this.getBlockPos().subtract(boxRadius), this.getBlockPos().offset(boxRadius)));
-    }
-
-    public void attachPeripheral(EntityRadarPeripheral peripheral) {
-        this.peripherals.add(peripheral);
-    }
-
-    public void detachPeripheral(EntityRadarPeripheral peripheral) {
-        this.peripherals.remove(peripheral);
     }
 
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, EntityRadarBlockEntity entity) {
@@ -51,7 +43,7 @@ public class EntityRadarBlockEntity extends BlockEntity {
     }
 
     public void sweep(Level world, BlockPos blockPos, BlockState blockState) {
-        peripherals.forEach((peripheral) -> peripheral.updateScanData(getEntitiesInRadius(world, 8), blockPos));
+        peripheral.updateScanData(getEntitiesInRadius(world, 8), blockPos);
     }
     
     @Override
@@ -62,5 +54,8 @@ public class EntityRadarBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag nbt, Provider registryLookup) {
         super.loadAdditional(nbt, registryLookup);
+    }
+    public IPeripheral peripheral() {
+        return peripheral;
     }
 }

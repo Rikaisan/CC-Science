@@ -37,13 +37,11 @@ public class EntityRadarPeripheral implements IPeripheral {
     @Override
     public void attach(IComputerAccess computer) {
         computers.add(computer);
-        radar.attachPeripheral(this);
     }
 
     @Override
     public void detach(IComputerAccess computer) {
         computers.remove(computer);
-        radar.detachPeripheral(this);
     }
 
     @LuaFunction(mainThread = true)
@@ -69,6 +67,6 @@ public class EntityRadarPeripheral implements IPeripheral {
 
     @Override
     public boolean equals(@Nullable IPeripheral other) {
-        return other instanceof EntityRadarPeripheral otherEntityRadar && radar == otherEntityRadar.radar;
+        return this == other;
     }
 }
