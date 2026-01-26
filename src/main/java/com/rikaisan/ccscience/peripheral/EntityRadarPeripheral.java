@@ -53,11 +53,13 @@ public class EntityRadarPeripheral implements IPeripheral {
         return computers.hasComputers();
     }
 
-    public void updateScanData(List<Entity> newEntityList, BlockPos origin) {
+    public void updateScanData(List<Entity> newEntityList, BlockPos originBlockPos) {
         List<Map<String, Object>> entities = new ArrayList<>();
 
+        final Vec3 origin = Vec3.atCenterOf(originBlockPos);
+
         for (Entity entity : newEntityList) {
-            final Vec3 relativePos = entity.position().subtract(origin.getX(), origin.getY(), origin.getZ());
+            final Vec3 relativePos = entity.position().subtract(origin);
             entities.add(Map.of(
                 "name", entity.getDisplayName().getString(),
                 "type", EntityType.getKey(entity.getType()).toString(),
@@ -72,5 +74,5 @@ public class EntityRadarPeripheral implements IPeripheral {
     @Override
     public boolean equals(@Nullable IPeripheral other) {
         return this == other;
-    }sav
+    }
 }
