@@ -17,7 +17,7 @@ import net.minecraft.world.phys.AABB;
 
 public class EntityRadarBlockEntity extends BlockEntity {
     private final EntityRadarPeripheral peripheral = new EntityRadarPeripheral(this);
-    private int tickCounter = 0;
+    private int sweepCounter = 0;
 
     public EntityRadarBlockEntity(BlockPos pos, BlockState state) {
         super(CCScienceBlockEntityType.ENTITY_RADAR, pos, state);
@@ -35,11 +35,15 @@ public class EntityRadarBlockEntity extends BlockEntity {
     }
 
     public void tick(Level world, BlockPos blockPos, BlockState blockState) {
-        this.tickCounter++;
-        if (this.tickCounter >= 20) {
-            sweep(world, blockPos, blockState);
-            this.tickCounter = 0;
-        }
+        sweepCounter++;
+
+        setChanged();
+
+        if(!peripheral.isAttached() || sweepCounter < 20)
+            return;
+
+        sweep(world, blockPos, blockState);
+        sweepCounter = 0;
     }
 
     public void sweep(Level world, BlockPos blockPos, BlockState blockState) {
@@ -48,12 +52,12 @@ public class EntityRadarBlockEntity extends BlockEntity {
     
     @Override
     protected void saveAdditional(CompoundTag nbt, Provider registryLookup) {
-        super.saveAdditional(nbt, registryLookup);
+        nbt.putInt("sweep_counter", sweepCounter);
     }
 
     @Override
     protected void loadAdditional(CompoundTag nbt, Provider registryLookup) {
-        super.loadAdditional(nbt, registryLookup);
+        sweepCounter = nbt.getInt("sweep_counter");
     }
     public IPeripheral peripheral() {
         return peripheral;

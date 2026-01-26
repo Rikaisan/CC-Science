@@ -49,6 +49,10 @@ public class EntityRadarPeripheral implements IPeripheral {
         return this.scannedEntities;
     }
 
+    public boolean isAttached() {
+        return computers.hasComputers();
+    }
+
     public void updateScanData(List<Entity> newEntityList, BlockPos origin) {
         List<Map<String, Object>> entities = new ArrayList<>();
 
@@ -68,5 +72,5 @@ public class EntityRadarPeripheral implements IPeripheral {
     @Override
     public boolean equals(@Nullable IPeripheral other) {
         return this == other;
-    }
+    }sav
 }
