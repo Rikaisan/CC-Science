@@ -1,8 +1,6 @@
 package com.rikaisan.ccscience.block.entity;
 
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.rikaisan.ccscience.peripheral.EntityRadarPeripheral;
 
@@ -17,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 public class EntityRadarBlockEntity extends BlockEntity {
-    private Set<EntityRadarPeripheral> peripherals = ConcurrentHashMap.newKeySet();
+    private final EntityRadarPeripheral peripheral = new EntityRadarPeripheral();
     public int tickCounter = 0;
 
     public EntityRadarBlockEntity(BlockPos pos, BlockState state) {
@@ -30,14 +28,6 @@ public class EntityRadarBlockEntity extends BlockEntity {
         return world.getEntities(null, AABB.encapsulatingFullBlocks(this.getBlockPos().subtract(boxRadius), this.getBlockPos().offset(boxRadius)));
     }
 
-    public void attachPeripheral(EntityRadarPeripheral peripheral) {
-        this.peripherals.add(peripheral);
-    }
-
-    public void detachPeripheral(EntityRadarPeripheral peripheral) {
-        this.peripherals.remove(peripheral);
-    }
-
     public static void tick(Level world, BlockPos blockPos, BlockState blockState, EntityRadarBlockEntity entity) {
         entity.tick(world, blockPos, blockState);
     }
@@ -48,19 +38,27 @@ public class EntityRadarBlockEntity extends BlockEntity {
             sweep(world, blockPos, blockState);
             this.tickCounter = 0;
         }
+
+        setChanged();
     }
 
     public void sweep(Level world, BlockPos blockPos, BlockState blockState) {
-        peripherals.forEach((peripheral) -> peripheral.updateScanData(getEntitiesInRadius(world, 8), blockPos));
+        peripheral.updateScanData(getEntitiesInRadius(world, 8), blockPos);
+    }
+
+    public EntityRadarPeripheral getPeripheral() {
+        return this.peripheral;
     }
     
     @Override
     protected void saveAdditional(CompoundTag nbt, Provider registryLookup) {
         super.saveAdditional(nbt, registryLookup);
+        nbt.putInt("tick_counter", tickCounter);
     }
 
     @Override
     protected void loadAdditional(CompoundTag nbt, Provider registryLookup) {
         super.loadAdditional(nbt, registryLookup);
+        tickCounter = nbt.getInt("tick_counter");
     }
 }

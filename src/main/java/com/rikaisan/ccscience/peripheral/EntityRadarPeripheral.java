@@ -1,6 +1,5 @@
 package com.rikaisan.ccscience.peripheral;
 
-import com.rikaisan.ccscience.block.entity.EntityRadarBlockEntity;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.AttachedComputerSet;
@@ -9,7 +8,6 @@ import dan200.computercraft.api.peripheral.IPeripheral;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +19,10 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class EntityRadarPeripheral implements IPeripheral {
-    private final EntityRadarBlockEntity radar;
     private final AttachedComputerSet computers = new AttachedComputerSet();
-    private List<Map<String, Object>> scannedEntities = Collections.emptyList();
+    private List<Map<String, Object>> scannedEntities = List.of();
 
-    public EntityRadarPeripheral(EntityRadarBlockEntity radar) {
-        this.radar = radar;
-    }
+    public EntityRadarPeripheral() {}
 
     @Override
     public @NonNull String getType() {
@@ -37,13 +32,11 @@ public class EntityRadarPeripheral implements IPeripheral {
     @Override
     public void attach(IComputerAccess computer) {
         computers.add(computer);
-        radar.attachPeripheral(this);
     }
 
     @Override
     public void detach(IComputerAccess computer) {
         computers.remove(computer);
-        radar.detachPeripheral(this);
     }
 
     @LuaFunction(mainThread = true)
@@ -51,11 +44,13 @@ public class EntityRadarPeripheral implements IPeripheral {
         return this.scannedEntities;
     }
 
-    public void updateScanData(List<Entity> newEntityList, BlockPos origin) {
+    public void updateScanData(List<Entity> newEntityList, BlockPos originBlock) {
         List<Map<String, Object>> entities = new ArrayList<>();
 
+        Vec3 origin = originBlock.getBottomCenter();
+
         for (Entity entity : newEntityList) {
-            final Vec3 relativePos = entity.position().subtract(origin.getX(), origin.getY(), origin.getZ());
+            final Vec3 relativePos = entity.position().subtract(origin);
             entities.add(Map.of(
                 "name", entity.getDisplayName().getString(),
                 "type", EntityType.getKey(entity.getType()).toString(),
@@ -69,6 +64,6 @@ public class EntityRadarPeripheral implements IPeripheral {
 
     @Override
     public boolean equals(@Nullable IPeripheral other) {
-        return other instanceof EntityRadarPeripheral otherEntityRadar && radar == otherEntityRadar.radar;
+        return other == this;
     }
 }

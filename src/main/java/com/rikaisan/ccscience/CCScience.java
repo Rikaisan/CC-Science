@@ -3,7 +3,6 @@ package com.rikaisan.ccscience;
 import com.rikaisan.ccscience.block.ModBlocks;
 import com.rikaisan.ccscience.block.entity.CCScienceBlockEntityType;
 import com.rikaisan.ccscience.item.ModItems;
-import com.rikaisan.ccscience.peripheral.EntityRadarPeripheral;
 import dan200.computercraft.api.peripheral.PeripheralLookup;
 import net.fabricmc.api.ModInitializer;
 
@@ -26,6 +25,6 @@ public class CCScience implements ModInitializer {
     }
 
     private void registerPeripherals() {
-        PeripheralLookup.get().registerForBlockEntity((blockEntity, direction) -> new EntityRadarPeripheral(blockEntity), CCScienceBlockEntityType.ENTITY_RADAR);
+        PeripheralLookup.get().registerForBlockEntity((blockEntity, direction) -> blockEntity.getPeripheral(), CCScienceBlockEntityType.ENTITY_RADAR);
     }
 }
