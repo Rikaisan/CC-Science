@@ -12,11 +12,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
-public abstract class HorizontalFacingPeripheral extends BaseEntityBlock {
+public abstract class HorizontalFacingPeripheralBlock extends BaseEntityBlock {
      
     public static final DirectionProperty FACING;
 
-    protected HorizontalFacingPeripheral(Properties settings) {
+    protected HorizontalFacingPeripheralBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }

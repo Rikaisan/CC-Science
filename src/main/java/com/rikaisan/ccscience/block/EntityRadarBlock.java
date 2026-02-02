@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class EntityRadarBlock extends HorizontalFacingPeripheral {
+public class EntityRadarBlock extends HorizontalFacingPeripheralBlock {
     
     public static final MapCodec<EntityRadarBlock> CODEC = simpleCodec(EntityRadarBlock::new);
 
