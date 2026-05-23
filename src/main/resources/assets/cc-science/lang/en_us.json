@@ -1,4 +1,5 @@
 {
   "cc-science.item_group": "CC: Science",
-  "block.cc-science.entity_radar": "Entity Radar"
+  "block.cc-science.entity_radar": "Entity Radar",
+  "menu.cc-science.entity_radar": "Entity Radar Upgrades"
 }

@@ -3,6 +3,8 @@ package com.rikaisan.ccscience;
 import com.rikaisan.ccscience.block.ModBlocks;
 import com.rikaisan.ccscience.block.entity.CCScienceBlockEntityType;
 import com.rikaisan.ccscience.item.ModItems;
+import com.rikaisan.ccscience.menu.ModMenuType;
+
 import dan200.computercraft.api.peripheral.PeripheralLookup;
 import net.fabricmc.api.ModInitializer;
 
@@ -19,6 +21,7 @@ public class CCScience implements ModInitializer {
 
         ModItems.initialize();
         ModBlocks.initialize();
+        ModMenuType.initialize();
         CCScienceBlockEntityType.initialize();
 
         registerPeripherals();
