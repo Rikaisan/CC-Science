@@ -22,6 +22,11 @@ repositories {
             includeGroup("cc.tweaked")
         }
     }
+
+	maven {
+        name = "AlexIIL"
+        url = "https://staging.alexiil.uk/maven/"
+    }
 }
 
 loom {
@@ -53,6 +58,8 @@ dependencies {
 	
 	modCompileOnly("cc.tweaked:cc-tweaked-$minecraft_version-fabric-api:$cct_version")
     modRuntimeOnly("cc.tweaked:cc-tweaked-$minecraft_version-fabric:$cct_version")
+
+	modImplementation include("io.github.cottonmc:LibGui:$libgui_version")
 }
 
 processResources {
